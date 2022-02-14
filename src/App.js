@@ -9,9 +9,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       staffs: STAFFS,
+      setrow: null
+      
     };
+    
   };
-
 
   render() {
     return (
@@ -21,7 +23,7 @@ class App extends React.Component {
             <NavbarBrand href="/">Ứng dụng quản lý nhân sự v1.0</NavbarBrand>
           </div>
         </Navbar>
-        <List staffs={this.state.staffs} />
+        <List staffs={this.state.staffs}/>
       </div>
 
     );
