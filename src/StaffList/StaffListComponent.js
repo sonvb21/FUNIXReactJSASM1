@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { 
+import {
   Navbar,
-  Card, 
-  CardTitle, 
+  Card,
+  CardTitle,
   CardGroup,
-  CardBody , 
+  CardBody,
   Nav,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  UncontrolledDropdown,} from "reactstrap";
+  UncontrolledDropdown,
+} from "reactstrap";
 import dateFormat from "dateformat";
 
 class List extends Component {
@@ -27,56 +28,55 @@ class List extends Component {
   }
 
 
-  NavBarDrop(){
+  NavBarDrop() {
     return (
-      <Navbar >
       <Nav>
-      <UncontrolledDropdown nav inNavbar>
-        <DropdownToggle caret color="muted">
-          Bố cục
-        </DropdownToggle>
-        <DropdownMenu >
-          <DropdownItem
-            onClick={() => {
-              this.setState({ columns: 12 });
-            }}
-          >
-            1 cột
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              this.setState({ columns: 6 });
-            }}
-          >
-            2 cột
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              this.setState({ columns: 4 });
+        <UncontrolledDropdown nav inNavbar>
+          <DropdownToggle caret color="muted">
+            Bố cục
+          </DropdownToggle>
+          <DropdownMenu >
+            <DropdownItem
+              onClick={() => {
+                this.setState({ columns: 12 });
+              }}
+            >
+              1 cột
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                this.setState({ columns: 6 });
+              }}
+            >
+              2 cột
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                this.setState({ columns: 4 });
 
-            }}
-          >
-            3 cột
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              this.setState({ columns: 3 });
-            }}
-          >
-            4 cột
-          </DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem
-            onClick={() => {
-               this.setState({ columns: 4 });
-            }}
-          >
-            Reset
-          </DropdownItem>
-        </DropdownMenu>
-      </UncontrolledDropdown>
-    </Nav>
-    </Navbar>
+              }}
+            >
+              3 cột
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                this.setState({ columns: 3 });
+              }}
+            >
+              4 cột
+            </DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem
+              onClick={() => {
+                this.setState({ columns: 4 });
+              }}
+            >
+              Reset
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+      </Nav>
+
     )
   }
 
@@ -117,13 +117,15 @@ class List extends Component {
 
     return (
       <div className="container">
-        <div className="row">{staffs}</div>
+        <div className="row pt">{staffs}</div>
         <div className="row">
           <div className="col-6 col-md-5 col-sm-6">
             {this.renderDish(this.state.selectedStaff)}
           </div>
         </div>
-       {this.NavBarDrop()}
+        <div>
+          {this.NavBarDrop()}
+        </div>
       </div>
     );
   }
