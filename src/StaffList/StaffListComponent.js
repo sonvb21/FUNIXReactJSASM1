@@ -9,7 +9,7 @@ class List extends Component {
 
     this.state = {
       selectedStaff: null,
-
+      columns :null
     }
 
   }
@@ -17,10 +17,10 @@ class List extends Component {
     this.setState({ selectedStaff: staff });
 
   }
-  onClick1(rownew){
-    this.setState({ selectedStaf: rownew })
-  }
-
+  
+setColumns(newrow){
+  this.setColumns({ columns :newrow })
+}
   
   renderDish(dish) {
 
@@ -46,13 +46,22 @@ class List extends Component {
 
 
   render() {
-    const mixCol = 'col-sm-6';
+    const cols = "col-12 col-md-6 col-lg-4 "
+    let colwidth = this.state.columns;
+    if (colwidth ) {
+      cols =
+        "col-12 col-md-" +
+        (colwidth > 3 ? colwidth : 6) +
+        " col-lg-" +
+        colwidth;
+    }
+
     const staffs = this.props.staffs.map((staff) => {
       return (
-        <CardGroup className="col-12 col-md-6 col-lg-4 ">
+        <CardGroup className= {cols}>
           <div className="m-1 md">
             <Card key={staff.id}
-              onClick={() => this.onStaff(staff)}>
+              onClick={() => this.onStaff(  )}>
               <CardTitle>{staff.name}</CardTitle>
             </Card>
           </div>
@@ -74,6 +83,8 @@ class List extends Component {
             {this.renderDish(this.state.selectedStaff)}
           </div>
         </div>
+        <button onClick={(newrow)=>this.setColumns(6)}>2 coot</button>
+       
       </div>
     );
   };
