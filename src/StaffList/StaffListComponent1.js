@@ -22,22 +22,22 @@ const List = (props) => {
     const [ValueStaff, setValueStaff] = useState(searchStaff);
 
     const SearchStaffs = () => {
-        
+
 
         const handleSearch = (event) => {
             setSearchStaff(event.target.value);
         }
-        const onSearch = () =>{
+        const onSearch = () => {
             setValueStaff(searchStaff);
         }
         return (
-            <form onSubmit={(value)=> onSearch(value) }>
+            <form onSubmit={(value) => onSearch(value)}>
                 <input
                     type="text"
                     value={searchStaff}
                     onChange={(event) => handleSearch(event)}
                 />
-               <button  type="submit">Search</button>
+                <button type="submit">Search</button>
             </form>
         )
     }
