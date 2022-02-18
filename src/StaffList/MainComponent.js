@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import List from './StaffListComponent1';
+import List from './StaffListComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import StaffDetail from './StaffsDetai';

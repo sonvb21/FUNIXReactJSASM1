@@ -37,3 +37,14 @@ address{
 .t-c{
     text-align: center
 }
+.d1{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 30px;
+    border-bottom: solid #ccc 1px;
+}
+.d2 {
+    
+    display: flex;
+    
+}
