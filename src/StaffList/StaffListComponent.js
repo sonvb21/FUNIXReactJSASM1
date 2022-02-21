@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Card, CardImg, CardTitle, CardGroup, Row, Col, Button } from 'reactstrap';
+import { Card, CardImg, CardTitle, CardGroup, Row, Col, Button, } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { Control, LocalForm } from 'react-redux-form';
+import AddForm from './AddForm';
 import { version } from 'react-dom';
+
 
 
 function RenderMenuItem({ staff }) {
@@ -13,31 +15,29 @@ function RenderMenuItem({ staff }) {
 
             </Link>
         </Card>
-
     );
 }
-
-
 const List = (props) => {
     const [ListStaff] = useState(props.staffs);
     const [searchStaff, setSearchStaff] = useState("");
 
-    
+
     const SearchStaffs = () => {
         const handleSearch = (values) => {
-           setSearchStaff(values.searchtext)
+            setSearchStaff(values.Staffs)
+
         }
-       
+
         return (
             <LocalForm onSubmit={(values) => handleSearch(values)}>
                 <Row className="form-group">
-                    <Col >
-                        <Control.text model=".searchtext" id="searchtext" name="searchtext"
+                    <Col md={8}>
+                        <Control.text model=".Staffs" id="a" name="searchtext"
                             placeholder="Tìm kiếm..."
                             className="form-control"
                         />
                     </Col>
-                    <Col md={2}>
+                    <Col md={3}>
                         <Button style={{ float: "right" }} type="submit" className='dark'>
                             Search
                         </Button>
@@ -49,9 +49,7 @@ const List = (props) => {
     const filteredStaff = ListStaff.filter(staff => {
         return staff.name.toLowerCase().indexOf(searchStaff.toLowerCase()) !== -1;
     })
-
-
-
+    
     const staffs = filteredStaff.map((staff) => {
         return (
             <CardGroup className="col-6 col-md-4 col-lg-2"  >
@@ -69,6 +67,7 @@ const List = (props) => {
             <div className="row">
                 <div className="d1 " >
                     <h3>Nhân Viên</h3>
+                    <AddForm/>
                     <SearchStaffs />
                 </div>
             </div>
