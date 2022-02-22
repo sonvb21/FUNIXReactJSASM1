@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Button, Modal, ModalFooter,
@@ -16,33 +16,58 @@ const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 
-function AddForm() {
+function AddForm(props) {
 
     const [modal, setModal] = React.useState(false);
-    const [modal, setModal] = useState();
+    const [newStaffs] = useState({
+        name: "",
+        doB: "",
+        salaryScale: "",
+        startDate: "",
+        department: "",
+        annualLeave: "",
+        overTime: "",
+        salary: "",
+        image: '/assets/images/alberto.png',
+
+    });
     const toggle = () => setModal(!modal);
 
     const handleSubmit = (values) => {
         // const newStaff = {...values}
-
-        const department = DEPARTMENTS.find(
-            (department) => department.id === state.department
-            );
+        // const department = DEPARTMENTS.find(
+        //     (department) => department.id === values.department
+        // );
+       var DEPARTMENTS = [{name:values.department,}]
 
         const newStaff = {
+            id: props.staffList.length + 1 ,
             name: values.name,
             doB: values.doB,
             salaryScale: values.salaryScale,
             startDate: values.startDate,
-            department: department
+            department: DEPARTMENTS[0],
             annualLeave: values.annualLeave,
             overTime: values.overTime,
             salary: values.salary,
             image: '/assets/images/alberto.png',
 
         }
-        console.log(newStaff)
-        alert(JSON.stringify(newStaff))
+        
+
+        localStorage.setItem("newStaff",JSON.stringify(newStaff));
+
+        var localStaff = JSON.parse(localStorage.getItem("newStaff"))
+
+       console.log(localStaff)
+
+
+        if (localStaff.name === "") {
+            alert("Vui lòng nhập các trường");
+        } else {
+            props.onStaff(localStaff);
+        }
+      
     }
 
     return (
@@ -123,11 +148,11 @@ function AddForm() {
                             <Col md={8}>
                                 <Control.select model=".department" name="contactType"
                                     className="form-control" >
-                                    <option>Sale</option>
-                                    <option>HR</option>
-                                    <option>Marketing</option>
-                                    <option>IT</option>
-                                    <option>Finance</option>
+                                    <option >Sale</option>
+                                    <option >HR</option>
+                                    <option >Marketing</option>
+                                    <option >IT</option>
+                                    <option >Finance</option>
                                 </Control.select>
 
                             </Col>

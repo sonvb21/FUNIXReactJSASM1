@@ -22,11 +22,17 @@ const List = (props) => {
     const [searchStaff, setSearchStaff] = useState("");
 
 
+    const addNewStaff = (staff) => {
+        props.addNewStaff(staff);
+    };
+
+
     const SearchStaffs = () => {
         const handleSearch = (values) => {
             setSearchStaff(values.Staffs)
 
         }
+
 
         return (
             <LocalForm onSubmit={(values) => handleSearch(values)}>
@@ -49,7 +55,7 @@ const List = (props) => {
     const filteredStaff = ListStaff.filter(staff => {
         return staff.name.toLowerCase().indexOf(searchStaff.toLowerCase()) !== -1;
     })
-    
+
     const staffs = filteredStaff.map((staff) => {
         return (
             <CardGroup className="col-6 col-md-4 col-lg-2"  >
@@ -67,7 +73,7 @@ const List = (props) => {
             <div className="row">
                 <div className="d1 " >
                     <h3>Nhân Viên</h3>
-                    <AddForm/>
+                    <AddForm staffList={ListStaff} onStaff={addNewStaff} />
                     <SearchStaffs />
                 </div>
             </div>

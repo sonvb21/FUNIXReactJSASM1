@@ -7,6 +7,7 @@ import Department from './DepartmentStaffs';
 import RenderStaffsSalary from './StaffsSalary';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { STAFFS, DEPARTMENTS } from "../shared/staffs";
 import '../App.css';
 
 
@@ -17,17 +18,28 @@ const mapStateToProps = state => {
     departments: state.departments
   }
 }
-
+console.log(this.state.staffs)
 class Main extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      staffs: STAFFS, //STAFFS lấy từ file js
+      department: DEPARTMENTS,
+    };
   }
 
+
+  addNewStaff = (newStaff) => {
+    this.setState({ staffs: [...this.state.staffs, newStaff] });
+
+  }
+
+  
   render() {
     const DishWithId = ({ match }) => {
       return (
-        <StaffDetail staff={this.props.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+        <StaffDetail staff={this.state.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
         />
       );
     };
@@ -36,10 +48,10 @@ class Main extends Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/menu' component={() => <List staffs={this.props.staffs} />} />
+          <Route exact path='/menu' component={() => <List staffs={this.state.staffs} addNewStaff={this.addNewStaff} />} />
           <Route path='/menu/:dishId' component={DishWithId} />
-          <Route path='/department' component={() => <Department departments={this.props.departments} />} />
-          <Route path='/salary' component={() => <RenderStaffsSalary listsalary={this.props.staffs} />} />
+          <Route path='/department' component={() => <Department departments={this.state.department} />} />
+          <Route path='/salary' component={() => <RenderStaffsSalary listsalary={this.state.staffs} />} />
           <Redirect to="/menu" />
         </Switch>
         <Footer />
