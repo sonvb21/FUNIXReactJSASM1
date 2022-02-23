@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-    Button, Modal, ModalFooter,
-    ModalHeader, ModalBody, Breadcrumb, BreadcrumbItem,
+    Button, Modal,
+    ModalHeader, ModalBody,
     Row, Col, Label
 } from "reactstrap"
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { DEPARTMENTS } from "../shared/staffs";
+
 
 
 const required = (val) => val && val.length;
@@ -34,10 +34,7 @@ function AddForm(props) {
     const toggle = () => setModal(!modal);
 
     const handleSubmit = (values) => {
-        // const newStaff = {...values}
-        // const department = DEPARTMENTS.find(
-        //     (department) => department.id === values.department
-        // );
+     
        var DEPARTMENTS = [{name:values.department,}]
 
         const newStaff = {
@@ -56,16 +53,12 @@ function AddForm(props) {
         
 
         localStorage.setItem("newStaff",JSON.stringify(newStaff));
+        
 
-        var localStaff = JSON.parse(localStorage.getItem("newStaff"))
-
-       console.log(localStaff)
-
-
-        if (localStaff.name === "") {
+        if (newStaff.name === "") {
             alert("Vui lòng nhập các trường");
         } else {
-            props.onStaff(localStaff);
+            props.onStaff(newStaff);
         }
       
     }
