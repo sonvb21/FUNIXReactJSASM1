@@ -3,7 +3,6 @@ import { Card, CardImg, CardTitle, CardGroup, Row, Col, Button, } from 'reactstr
 import { Link } from 'react-router-dom'
 import { Control, LocalForm } from 'react-redux-form';
 import AddForm from './AddForm';
-import { version } from 'react-dom';
 
 
 

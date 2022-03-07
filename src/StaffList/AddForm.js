@@ -13,32 +13,20 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-
+const numRange = (val) => val > 0 && val < 4;
 
 function AddForm(props) {
 
     const [modal, setModal] = React.useState(false);
-    const [newStaffs] = useState({
-        name: "",
-        doB: "",
-        salaryScale: "",
-        startDate: "",
-        department: "",
-        annualLeave: "",
-        overTime: "",
-        salary: "",
-        image: '/assets/images/alberto.png',
 
-    });
     const toggle = () => setModal(!modal);
 
     const handleSubmit = (values) => {
-     
-       var DEPARTMENTS = [{name:values.department,}]
+
+        var DEPARTMENTS = [{ name: values.department, }]
 
         const newStaff = {
-            id: props.staffList.length + 1 ,
+            id: props.staffList.length + 1,
             name: values.name,
             doB: values.doB,
             salaryScale: values.salaryScale,
@@ -50,17 +38,15 @@ function AddForm(props) {
             image: '/assets/images/alberto.png',
 
         }
-        
 
-        localStorage.setItem("newStaff",JSON.stringify(newStaff));
-        
 
-        if (newStaff.name === "") {
-            alert("Vui lòng nhập các trường");
-        } else {
+        localStorage.setItem("newStaff", JSON.stringify(newStaff));
+
+
+       
             props.onStaff(newStaff);
-        }
-      
+        
+
     }
 
     return (
@@ -75,7 +61,8 @@ function AddForm(props) {
                     toggle={toggle}>Thêm Nhân Viên</ModalHeader>
                 <ModalBody>
                     <LocalForm onSubmit={(values) => handleSubmit(values)}>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="name" md={4}>Tên</Label>
                             <Col md={8}>
                                 <Control.text model=".name" id="firstname" name=""
@@ -96,7 +83,8 @@ function AddForm(props) {
                                 />
                             </Col>
                         </Row>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="lastname" md={4}>Ngày sinh</Label>
                             <Col md={8}>
                                 <Control.text model=".doB" id="firstname" name="firstname"
@@ -116,7 +104,8 @@ function AddForm(props) {
                                 />
                             </Col>
                         </Row>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="lastname" md={4}>Ngày vào công ty</Label>
                             <Col md={8}>
                                 <Control.text model=".startDate" id="firstname" name="firstname"
@@ -136,7 +125,8 @@ function AddForm(props) {
                                 />
                             </Col>
                         </Row>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="lastname" md={4}>Phòng Ban</Label>
                             <Col md={8}>
                                 <Control.select model=".department" name="contactType"
@@ -150,13 +140,15 @@ function AddForm(props) {
 
                             </Col>
                         </Row>
-                        <Row className="form-group">
-                            <Label htmlFor="telnum" md={4}>Hệ số lương</Label>
+
+                        <Row className="form-group mg-6">
+                            <Label htmlFor="salaryScale" md={4}>Hệ số lương</Label>
                             <Col md={8}>
-                                <Control.text model=".salaryScale" id="telnum" name="telnum"
+                                <Control.text model=".salaryScale" id="salaryScale" name="salaryScale"
                                     className="form-control"
                                     validators={{
-                                        isNumber
+                                        isNumber,
+                                        numRange
                                     }}
                                 />
                                 <Errors
@@ -164,16 +156,18 @@ function AddForm(props) {
                                     model=".salaryScale"
                                     show="touched"
                                     messages={{
-                                        isNumber: 'Kí tự phải là số',
+                                        isNumber: "Yêu cầu bắt buộc phải là số",
+                                        numRange: "Yêu cầu nhập số từ 1.0 - 3.0",
                                     }}
                                 />
 
                             </Col>
                         </Row>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="annualLeave" md={4}>Số ngày nghỉ còn lại</Label>
                             <Col md={8}>
-                                <Control.text model=".annualLeave" id="firstname" name="firstname"
+                                <Control.text model=".annualLeave" id="annualLeave" name=".annualLeave"
                                     className="form-control"
                                     validators={{
                                         isNumber
@@ -181,18 +175,19 @@ function AddForm(props) {
                                 />
                                 <Errors
                                     className="text-danger"
-                                    model=".salaryScale"
+                                    model=".annualLeave"
                                     show="touched"
                                     messages={{
-                                        isNumber: 'Kí tự phải là số',
+                                        isNumber: "Yêu cầu bắt buộc phải là số",
                                     }}
                                 />
                             </Col>
                         </Row>
-                        <Row className="form-group">
+
+                        <Row className="form-group mg-6">
                             <Label htmlFor="overTime" md={4}>Số ngày đã làm thêm</Label>
                             <Col md={8}>
-                                <Control.text model=".overTime" id="firstname" name="firstname"
+                                <Control.text model=".overTime" id="overTime" name="overTime"
                                     className="form-control"
                                     validators={{
                                         isNumber
@@ -200,14 +195,15 @@ function AddForm(props) {
                                 />
                                 <Errors
                                     className="text-danger"
-                                    model=".salaryScale"
+                                    model=".overTime"
                                     show="touched"
                                     messages={{
-                                        isNumber: 'Kí tự phải là số',
+                                        isNumber: "Yêu cầu bắt buộc phải là số",
                                     }}
                                 />
                             </Col>
                         </Row>
+
                         <Row className="form-group">
                             <Col md={{ size: 10, offset: 2 }}>
                                 <Button type="submit" color="primary">
