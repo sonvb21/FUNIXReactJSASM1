@@ -24,24 +24,17 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      staffs: STAFFS, //STAFFS lấy từ file js
+      staffs: STAFFS, 
       department: DEPARTMENTS,
     };
-    console.log(this.state.staffs)
+    
   }
   
 
-  componentDidMount() {
-   
-     
-  
-  }
 
   addNewStaff= (newStaff) => {
-    var localStaff = JSON.parse(localStorage.getItem("newStaff"))
-    this.setState({ staffs: [...this.state.staffs, localStaff] });
-    console.log(newStaff)
-
+    
+    this.setState({ staffs: [...this.state.staffs, newStaff] });
 
 }
   
