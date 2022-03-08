@@ -7,5 +7,18 @@ export const initialState = {
 };
 
 export const Reducer = (state = initialState, action) => {
-    return state;
+    switch(action.type) {
+        case "ADD_STAFF":
+            
+            let newStaff = action.payload;
+            console.log(newStaff)
+            return {
+                ...state ,staffs: [...state.staffs, newStaff]
+            } ;
+          break;
+        
+        default:
+            return state;
+      }
+   
 };

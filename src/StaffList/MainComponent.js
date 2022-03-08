@@ -7,7 +7,6 @@ import Department from './DepartmentStaffs';
 import RenderStaffsSalary from './StaffsSalary';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { STAFFS, DEPARTMENTS } from "../shared/staffs";
 import '../App.css';
 
 
@@ -19,36 +18,30 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps =(dispatch) => {
+  return{
+    addNewStaffRedux: (newStaff) => dispatch ({ type: "ADD_STAFF" , payload : newStaff})
+  }
+}
+
 class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      staffs: STAFFS, //STAFFS lấy từ file js
-      department: DEPARTMENTS,
-    };
-    console.log(this.state.staffs)
+   
   }
   
 
-  componentDidMount() {
-   
-     
-  
-  }
 
   addNewStaff= (newStaff) => {
-    var localStaff = JSON.parse(localStorage.getItem("newStaff"))
-    this.setState({ staffs: [...this.state.staffs, localStaff] });
-    console.log(newStaff)
-
+      this.props.addNewStaffRedux(newStaff)
 
 }
   
   render() {
     const DishWithId = ({ match }) => {
       return (
-        <StaffDetail staff={this.state.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+        <StaffDetail staff={this.props.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
         />
       );
     };
@@ -57,10 +50,10 @@ class Main extends Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/menu' component={() => <List staffs={this.state.staffs}  addNewStaff = {this.addNewStaff}/>} />
+          <Route exact path='/menu' component={() => <List staffs={this.props.staffs}  addNewStaff = {this.addNewStaff}/>} />
           <Route path='/menu/:dishId' component={DishWithId} />
-          <Route path='/department' component={() => <Department departments={this.state.department} />} />
-          <Route path='/salary' component={() => <RenderStaffsSalary listsalary={this.state.staffs} />} />
+          <Route path='/department' component={() => <Department departments={this.props.department} />} />
+          <Route path='/salary' component={() => <RenderStaffsSalary listsalary={this.props.staffs} />} />
           <Redirect to="/menu" />
         </Switch>
         <Footer />
@@ -71,4 +64,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
