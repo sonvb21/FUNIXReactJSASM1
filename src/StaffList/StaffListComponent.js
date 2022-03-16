@@ -3,35 +3,42 @@ import { Card, CardImg, CardTitle, CardGroup, Row, Col, Button, } from 'reactstr
 import { Link } from 'react-router-dom'
 import { Control, LocalForm } from 'react-redux-form';
 import AddForm from './AddForm';
+import { FadeTransform } from 'react-animation-components';
 
-
-
+/* Mục đích của function này là gì  
+    Input kiểu giá trị là gì 
+*/
 function RenderMenuItem({ staff }) {
     return (
+        <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
         <Card >
             <Link to={`/menu/${staff.id}`} >
                 <CardImg width="100%" src={staff.image} alt={staff.name} />
 
             </Link>
         </Card>
+        </FadeTransform>
     );
 }
-const List = (props) => {
-    const [ListStaff] = useState(props.staffs);
-    const [searchStaff, setSearchStaff] = useState("");
 
+const ListStaff = (props) => {
+    const [ListStaff,setListStaff] = useState(props.staffs);
+    const [searchInput, setSearchInput] = useState("");
+  
+    const newStaff = (staff) => {
+        props.postStaff(staff);
 
-    const addNewStaff = (staff) => {
-        props.addNewStaff(staff);
-    };
-
+    }
 
     const SearchStaffs = () => {
+
         const handleSearch = (values) => {
-            setSearchStaff(values.Staffs)
-
+            setSearchInput(values.Staffs)
         }
-
 
         return (
             <LocalForm onSubmit={(values) => handleSearch(values)}>
@@ -43,7 +50,7 @@ const List = (props) => {
                         />
                     </Col>
                     <Col md={3}>
-                        <Button style={{ float: "right" }} type="submit" className='dark'>
+                        <Button color="primary" style={{ float: "right" }} type="submit" className='dark'>
                             Search
                         </Button>
                     </Col>
@@ -51,28 +58,32 @@ const List = (props) => {
             </LocalForm>
         )
     }
-    const filteredStaff = ListStaff.filter(staff => {
-        return staff.name.toLowerCase().indexOf(searchStaff.toLowerCase()) !== -1;
-    })
+    
+    const filterStaff = ListStaff.filter((staff) => {
+                console.log("staff.name",staff.name)
+                return  staff.name.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1;
+            });
 
-    const staffs = filteredStaff.map((staff) => {
+    const staffs =  filterStaff.map((staff) => {
         return (
             <CardGroup className="col-6 col-md-4 col-lg-2"  >
+
                 <Card className="m-1" key={staff.id}>
+
                     <RenderMenuItem staff={staff} />
                     <CardTitle className="t-c" >{staff.name}</CardTitle>
-
                 </Card >
             </CardGroup>
         );
     });
 
     return (
+       
         <div className="container">
             <div className="row">
                 <div className="d1 " >
                     <h3>Nhân Viên</h3>
-                    <AddForm staffList={ListStaff} onStaff={addNewStaff} />
+                    <AddForm staffList={ListStaff} postStaff={newStaff} />
                     <SearchStaffs />
                 </div>
             </div>
@@ -80,8 +91,10 @@ const List = (props) => {
                 {staffs}
             </div>
         </div>
+       
     );
+
 
 }
 
-export default List;
+export default ListStaff;

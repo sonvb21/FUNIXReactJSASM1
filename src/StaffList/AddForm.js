@@ -1,60 +1,47 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    Button, Modal,
-    ModalHeader, ModalBody,
-    Row, Col, Label
-} from "reactstrap"
+        import { Button, Modal,ModalHeader, ModalBody,Row, Col, Label } from "reactstrap"
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
-
-
+// thiết lập validate cho modal 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const numRange = (val) => val > 0 && val < 4;
 
+// khởi tạo hàm Modal
 function AddForm(props) {
-
+   //tạo dữ liệu bật tặt modal
     const [modal, setModal] = React.useState(false);
 
     const toggle = () => setModal(!modal);
-
+    // lấy và lưu dữ liệu tử ô input 
     const handleSubmit = (values) => {
-
-        var DEPARTMENTS = [{ name: values.department, }]
-
         const newStaff = {
             id: props.staffList.length + 1,
             name: values.name,
-            doB: values.doB,
+            doB: values.doB, 
             salaryScale: values.salaryScale,
             startDate: values.startDate,
-            department: DEPARTMENTS[0],
+            departmentId: values.departmentId,
             annualLeave: values.annualLeave,
             overTime: values.overTime,
             salary: values.salary,
             image: '/assets/images/alberto.png',
 
         }
-
-
-        localStorage.setItem("newStaff", JSON.stringify(newStaff));
-
-
-       
-            props.onStaff(newStaff);
-        
+        // chuyền data về componment cha
+        props.postStaff(newStaff);
 
     }
-
+    // thiết lập, khởi tạo modal
     return (
         <div style={{
             display: 'block', width: 700,
         }}>
-            <Button color="danger"
-                onClick={toggle}>Add New Staff</Button>
+            <Button color="success"
+                onClick={toggle}> <i class="fa fa-solid fa-plus"></i> Add New Staff</Button>
             <Modal isOpen={modal} toggle={toggle}>
 
                 <ModalHeader
@@ -127,15 +114,15 @@ function AddForm(props) {
                         </Row>
 
                         <Row className="form-group mg-6">
-                            <Label htmlFor="lastname" md={4}>Phòng Ban</Label>
+                            <Label htmlFor="departmentId" md={4}>Phòng Ban</Label>
                             <Col md={8}>
-                                <Control.select model=".department" name="contactType"
+                                <Control.select model=".departmentId" name="departmentId"
                                     className="form-control" >
-                                    <option >Sale</option>
-                                    <option >HR</option>
-                                    <option >Marketing</option>
-                                    <option >IT</option>
-                                    <option >Finance</option>
+                                    <option value="Dept01" >Sale</option>
+                                    <option value="Dept02" >HR</option>
+                                    <option value="Dept03" >Marketing</option>
+                                    <option value="Dept04" >IT</option>
+                                    <option value="Dept05" >Finance</option>
                                 </Control.select>
 
                             </Col>

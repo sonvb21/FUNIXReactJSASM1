@@ -1,70 +1,70 @@
-import React,{useState} from "react";
-import { Card, CardTitle, CardGroup, Breadcrumb, BreadcrumbItem, CardText, CardBody,Button } from 'reactstrap';
+import React, { useState } from "react";
+import { Card, CardTitle, CardGroup, Breadcrumb, BreadcrumbItem, CardText, CardBody, Button } from 'reactstrap';
 import { Link } from 'react-router-dom'
+import { FadeTransform } from 'react-animation-components';
 
-const Salary = ({ salary }) => {
-    const basicSalary = 3000000;
-    const overTimeSalary = 200000;
-    const salaryy = (salary.salaryScale * basicSalary) + (salary.overTime * overTimeSalary)
 
-    return (
-        salary = parseInt(salaryy)
-        
-    )
-    
-}
 function RenderStaffsSalary(props) {
-        const [staffList, setStaffList] = useState(props.listsalary);
+    const [staffList, setStaffList] = useState(props.listsalary);
 
 
-        function salaryCalc(salaryScale, overTime) {
-          const basicSalary = 3000000;
-          const overTimeSalary = 200000;
-          return salaryScale * basicSalary + overTime * overTimeSalary;
-        }
-      
-    //    console.log(salaryCalc)
-        function sortSalary(sorttype) {
-          let sortedStaffList = [...staffList];
-          let salaryA = 0;
-          let salaryB = 0;
-      
-          if (sorttype === "inc") {
+    function salaryCalc(salaryScale, overTime) {
+        const basicSalary = 3000000;
+        const overTimeSalary = 200000;
+        return salaryScale * basicSalary + overTime * overTimeSalary;
+    }
+
+
+    function sortSalary(sorttype) {
+        let sortedStaffList = [...staffList];
+        let salaryA = 0;
+        let salaryB = 0;
+
+        if (sorttype === "inc") {
             sortedStaffList.sort(function (a, b) {
-              salaryA = salaryCalc(  a.salaryScale, a.overTime);
-              salaryB = salaryCalc(b.salaryScale, b.overTime);
-              return salaryA - salaryB;
+                salaryA = salaryCalc(a.salaryScale, a.overTime);
+                salaryB = salaryCalc(b.salaryScale, b.overTime);
+                return salaryA - salaryB;
             });
-           
-          }
-      
-          if (sorttype === "dec") {
-            sortedStaffList.sort(function (a, b) {
-              salaryA = salaryCalc(a.salaryScale, a.overTime);
-              salaryB = salaryCalc(b.salaryScale, b.overTime);
-              return salaryB - salaryA;
-            });
-          }
-      
-          setStaffList(sortedStaffList);
+
         }
 
-    const StaffsSalary =staffList.map((salary) => {
+        if (sorttype === "dec") {
+            sortedStaffList.sort(function (a, b) {
+                salaryA = salaryCalc(a.salaryScale, a.overTime);
+                salaryB = salaryCalc(b.salaryScale, b.overTime);
+                return salaryB - salaryA;
+            });
+        }
+
+        setStaffList(sortedStaffList);
+    }
+
+    const StaffsSalary = staffList.map((salary) => {
         return (
+
             <CardGroup className="col-12 col-md-6 col-lg-4 ">
-                <Card className="m-1" key={salary.id}>
-                    <CardTitle className="t-c"><h4>{salary.name}</h4></CardTitle>
-                    <CardBody>
-                        <p>Mã nhân viên: {salary.id}</p>
-                        <p>Hệ số lương: {salary.salaryScale}</p>
-                        <p>Số giờ làm thêm: {salary.overTime}</p>
-                        <Card className="p-1">
-                            <CardText className="salary">
-                                Lương: <Salary salary={salary} />
-                            </CardText>
-                        </Card>
-                    </CardBody>
-                </Card >
+               
+                    <Card className="m-1" key={salary.id}>
+                    <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                        <CardTitle className="t-c"><h4>{salary.name}</h4></CardTitle>
+                        <CardBody>
+                            <p>Mã nhân viên: {salary.id}</p>
+                            <p>Hệ số lương: {salary.salaryScale}</p>
+                            <p>Số giờ làm thêm: {salary.overTime}</p>
+                            <Card className="p-1">
+                                <CardText className="salary">
+                                    Lương: {salary.salary}
+                                </CardText>
+                            </Card>
+                        </CardBody>
+                        </FadeTransform>
+                    </Card >
+                
             </CardGroup>
 
         )
@@ -78,11 +78,11 @@ function RenderStaffsSalary(props) {
                 </div>
                 <div className="col-12">
                     <Button onClick={() => sortSalary("inc")}>
-                        <i  aria-hidden="true"></i> Lương thấp
+                        <i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Lương thấp
                     </Button>
 
                     <Button onClick={() => sortSalary("dec")}>
-                        <i aria-hidden="true"></i> Lương cao
+                        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Lương cao
                     </Button>
                 </div>
             </div>
