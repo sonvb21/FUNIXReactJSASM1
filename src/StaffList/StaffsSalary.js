@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardTitle, CardGroup, Breadcrumb, BreadcrumbItem, CardText, CardBody, Button } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { FadeTransform } from 'react-animation-components';
+import {fetchSalary} from '../redux/ActionCreators';
+import { useDispatch, useSelector } from "react-redux";
 
 
-function RenderStaffsSalary(props) {
-    const [staffList, setStaffList] = useState(props.listsalary);
+function RenderStaffsSalary() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch((dispatch) => {
+           dispatch(fetchSalary(dispatch)) 
+        });
+      }, []);
+    
+    
+    const listsalary = useSelector(state =>state.salary.salary)
+    const [staffList, setStaffList] = useState(listsalary);
+
+    
+console.log("listsalary123123",listsalary)
 
 
+// hàm tính lương nhân viên
     function salaryCalc(salaryScale, overTime) {
         const basicSalary = 3000000;
         const overTimeSalary = 200000;
         return salaryScale * basicSalary + overTime * overTimeSalary;
     }
 
-
+// sắp xếp lương theo thứ tự cao hoặc thấp
     function sortSalary(sorttype) {
         let sortedStaffList = [...staffList];
         let salaryA = 0;
@@ -26,7 +41,6 @@ function RenderStaffsSalary(props) {
                 salaryB = salaryCalc(b.salaryScale, b.overTime);
                 return salaryA - salaryB;
             });
-
         }
 
         if (sorttype === "dec") {
@@ -36,10 +50,10 @@ function RenderStaffsSalary(props) {
                 return salaryB - salaryA;
             });
         }
-
         setStaffList(sortedStaffList);
     }
 
+    // in danh sách lương nhân viên
     const StaffsSalary = staffList.map((salary) => {
         return (
 

@@ -15,10 +15,7 @@ const numRange = (val) => val > 0 && val < 4;
 
 function AddForm({ staff, deleteStaff, departments, patchStaff }) {
   //tạo dữ liệu bật tặt modal
-  
-
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
   // lấy và lưu dữ liệu tử ô input 
   const handleSubmit = (values) => {
@@ -38,6 +35,8 @@ function AddForm({ staff, deleteStaff, departments, patchStaff }) {
     // chuyền data về componment cha
     patchStaff(newStaff);
   }
+
+  // hàm xóa lấy id từ đối tượng và chuyển về componenr cha & back lại trang chủ
   let history = useHistory();
   const handleDelete = (idStaff) => {
     deleteStaff(idStaff);
@@ -49,13 +48,15 @@ function AddForm({ staff, deleteStaff, departments, patchStaff }) {
     <div style={{
       display: 'block', width: 700,
     }}>
+  {/* // nút sửa   */}
       <Button color="success"
         onClick={toggle}> <i class="fa fa-edit"></i> Sửa</Button>
-
+  {/* // nút xóa   */}
       <Button color="danger"
         onClick={() => handleDelete(staff.id)}> <i class="fa fa-solid fa-trash"></i> Xóa</Button>
-      <Modal isOpen={modal} toggle={toggle}>
 
+  {/* //modal */}
+      <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader
           toggle={toggle}>Sửa Thông Tin Nhân Viên</ModalHeader>
         <ModalBody>
@@ -248,6 +249,7 @@ function AddForm({ staff, deleteStaff, departments, patchStaff }) {
   );
 }
 
+//hàm render tên và đường đận tới detai
 const RenderBreadcrumb = ({ staff }) => {
   return (
     <Breadcrumb tag="nav" listTag="div">
@@ -259,7 +261,7 @@ const RenderBreadcrumb = ({ staff }) => {
   );
 };
 
-
+// Hàm render ảnh 
 const RenderImage = ({ staff ,errMess , isLoading }) => {
   console.log("isLoading1.....",isLoading)
   if (isLoading) {
@@ -294,6 +296,7 @@ else if (staff != null)
   );
 };
 
+//Hàm render thông tin chi tiết nhân viên
 const RenderDetail = ({ staff, departments }) => {
   return (
     <Fade in>
@@ -319,9 +322,10 @@ const RenderDetail = ({ staff, departments }) => {
   );
 };
 
-
+// hàm render tổng StaffDetail
 function StaffDetail({ staff, departments, deleteStaff, patchStaff, isLoading, errMess  }) {
- 
+
+  // nhận và chuyền id đối tượng muốn xóa về compomner chính
   const deleteStaffId = (id) => {
     deleteStaff(id)
   }

@@ -11,8 +11,9 @@ import { connect } from 'react-redux';
 import '../App.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-
+// lấy giá trị từ store redux
 const mapStateToProps = state => {
+  console.log("state.salary.salary.....",state.salary.salary)
     return {
       staffs:  state.staffs.staffs,
       departments: state.departments.departments,
@@ -21,7 +22,7 @@ const mapStateToProps = state => {
       errMess: state.staffs.errMess
     }
 }
-
+// gửi giá trị về redux
 const mapDispatchToProps = (dispatch) => {
   return {
     patchStaff: (Staff) => dispatch(patchStaff(Staff)),
@@ -37,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 class Main extends Component {
 
   componentDidMount() {
+    console.log( "this.props.fetchStaffs()", this.props.fetchStaffs)
     this.props.fetchStaffs();
     this.props.fetchDepartments();
     this.props.fetchSalary();
@@ -52,7 +54,7 @@ class Main extends Component {
         />
       );
     };
- 
+
     return (
       <div>
         <Header />
