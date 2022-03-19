@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 function RenderStaffsSalary() {
+
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch((dispatch) => {
-           dispatch(fetchSalary(dispatch)) 
+        dispatch(() => {
+           dispatch(fetchSalary()) 
         });
       }, []);
-    
     
     const listsalary = useSelector(state =>state.salary.salary)
     const [staffList, setStaffList] = useState(listsalary);
