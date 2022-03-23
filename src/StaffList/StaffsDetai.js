@@ -49,10 +49,10 @@ function AddForm({ staff, deleteStaff, departments, patchStaff }) {
       display: 'block', width: 700,
     }}>
   {/* // nút sửa   */}
-      <Button color="success"
+      <Button color="success" className="mr-6"
         onClick={toggle}> <i class="fa fa-edit"></i> Sửa</Button>
   {/* // nút xóa   */}
-      <Button color="danger"
+      <Button color="danger" className="mr-6"
         onClick={() => handleDelete(staff.id)}> <i class="fa fa-solid fa-trash"></i> Xóa</Button>
 
   {/* //modal */}
@@ -263,7 +263,6 @@ const RenderBreadcrumb = ({ staff }) => {
 
 // Hàm render ảnh 
 const RenderImage = ({ staff ,errMess , isLoading }) => {
-  console.log("isLoading1.....",isLoading)
   if (isLoading) {
     return(
         <div className="container">

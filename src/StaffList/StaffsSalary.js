@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardTitle, CardGroup, Breadcrumb, BreadcrumbItem, CardText, CardBody, Button } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { FadeTransform } from 'react-animation-components';
-import {fetchSalary} from '../redux/ActionCreators';
-import { useDispatch, useSelector } from "react-redux";
 
 
-function RenderStaffsSalary() {
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(() => {
-           dispatch(fetchSalary()) 
-        });
-      }, []);
-    
-    const listsalary = useSelector(state =>state.salary.salary)
+function RenderStaffsSalary({listsalary}) {
     const [staffList, setStaffList] = useState(listsalary);
-
-    
-console.log("listsalary123123",listsalary)
-
 
 // hàm tính lương nhân viên
     function salaryCalc(salaryScale, overTime) {
@@ -54,7 +39,7 @@ console.log("listsalary123123",listsalary)
     }
 
     // in danh sách lương nhân viên
-    const StaffsSalary = staffList.map((salary) => {
+    const StaffsSalary = staffList && staffList.map((salary) => {
         return (
 
             <CardGroup className="col-12 col-md-6 col-lg-4 ">

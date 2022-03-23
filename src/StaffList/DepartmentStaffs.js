@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardTitle, CardGroup } from "reactstrap";
 import { FadeTransform } from 'react-animation-components';
 
 function Department(props) {
-    const Departments = props.departments.map((department) => {
+    const [departments, setDepartments] = useState(props.departments);
+
+    const Departments = departments && departments.map((department) => {
         return (
             <CardGroup className="col-12 col-md-6 col-lg-4 ">
                 <Card key={department.id} className="m-2">

@@ -73,3 +73,6 @@ address{
     transform: translateX(100%);
     transition: all 300ms ease-out;
 }
+    .mr-6{
+        margin: 6px;
+    }

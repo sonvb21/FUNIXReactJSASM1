@@ -1,9 +1,8 @@
 import { baseUrl } from '../shared/baseUrl';
 import * as ActionTypes from './ActionTypes';
 
-
+// gọi API danh sách nhân viên
 export const fetchStaffs = () => (dispatch) => {
-
   dispatch(staffsLoading(true));
 
   return fetch(baseUrl + "staffs")
@@ -29,57 +28,24 @@ export const fetchStaffs = () => (dispatch) => {
     .catch((error) => dispatch(StaffsFailed(error.message)));
 }
 
-export const staffsLoading = () => ({
-  type: ActionTypes.STAFFS_LOADING
-});
 
-export const StaffsFailed = (errmess) => ({
-  type: ActionTypes.STAFFS_FAILED,
-  payload: errmess
-});
-
-export const addStaffs = (staffs) => ({
-  type: ActionTypes.ADD_STAFFS,
-  payload: {
-    staffs,
-  },
-
-});
-
+// gọi API danh sách lương nhân viên
 export const fetchSalary = () => (dispatch) => {
   return fetch(baseUrl + 'staffsSalary')
     .then(response => response.json())
     .then(salary => dispatch(addSalary(salary)));
 };
 
-export const SalaryFailed = (errmess) => ({
-  type: ActionTypes.SALARY_FAILED,
-  payload: errmess
-});
 
-export const addSalary = (salary) => ({
-  type: ActionTypes.ADD_SALARY,
-  payload: salary
-});
-
-
+// gọi API danh sách phong ban 
 export const fetchDepartments = () => (dispatch) => {
   return fetch(baseUrl + 'departments')
     .then(response => response.json())
     .then(departments => dispatch(addDepartments(departments)));
 };
 
-export const departmentsFailed = (errmess) => ({
-  type: ActionTypes.DEPARTMENTS_FAILED,
-  payload: errmess
-});
 
-export const addDepartments = (departments) => ({
-  type: ActionTypes.ADD_DEPARTMENTS,
-  payload: departments
-});
-
-
+// tạo mới nhân viên 
 export const postStaff = (newStaff) => (dispatch) => {
   dispatch(staffsLoading(true));
   return fetch(baseUrl + 'staffs', {
@@ -119,7 +85,7 @@ export const deleteStaff = (id) => (dispatch) => {
     });
 };
 
-
+// sửa nhân viên
 export const patchStaff= (Staff) => (dispatch) => {
   return fetch(baseUrl + "staffs", {
     method: "PATCH",
@@ -149,6 +115,43 @@ export const patchStaff= (Staff) => (dispatch) => {
 };
 
 
+
+export const staffsLoading = () => ({
+  type: ActionTypes.STAFFS_LOADING
+});
+
+export const StaffsFailed = (errmess) => ({
+  type: ActionTypes.STAFFS_FAILED,
+  payload: errmess
+});
+
+export const addStaffs = (staffs) => ({
+  type: ActionTypes.ADD_STAFFS,
+  payload: {
+    staffs,
+  },
+
+});
+
+export const departmentsFailed = (errmess) => ({
+  type: ActionTypes.DEPARTMENTS_FAILED,
+  payload: errmess
+});
+
+export const addDepartments = (departments) => ({
+  type: ActionTypes.ADD_DEPARTMENTS,
+  payload: departments
+});
+
+export const SalaryFailed = (errmess) => ({
+  type: ActionTypes.SALARY_FAILED,
+  payload: errmess
+});
+
+export const addSalary = (salary) => ({
+  type: ActionTypes.ADD_SALARY,
+  payload: salary
+});
 
 
 

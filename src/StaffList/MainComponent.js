@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ListStaff from './StaffListComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import RenderStaffsSalary from './StaffsSalary';
 import StaffDetail from './StaffsDetai';
 import Department from './DepartmentStaffs';
-import RenderStaffsSalary from './StaffsSalary';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { fetchStaffs, fetchDepartments, fetchSalary, postStaff, deleteStaff,patchStaff } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
@@ -38,19 +38,17 @@ const mapDispatchToProps = (dispatch) => {
 class Main extends Component {
 
   componentDidMount() {
-    console.log( "this.props.fetchStaffs()", this.props.fetchStaffs)
     this.props.fetchStaffs();
     this.props.fetchDepartments();
     this.props.fetchSalary();
   }
 
   render() {
-    console.log("this.props.staffs.isLoading",this.props.isLoading)
     const DishWithId = ({ match }) => {
       return (
-        <StaffDetail staff={this.props.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}  departments={this.props.departments} 
-        staffs={this.props.staffs} postStaff={this.props.postStaff} deleteStaff={this.props.deleteStaff} patchStaff={this.props.patchStaff}  isLoading={this.props.isLoading}
-        errMess={this.props.errMess}
+        <StaffDetail staff={this.props.staffs.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+        departments={this.props.departments}  staffs={this.props.staffs} postStaff={this.props.postStaff} 
+        deleteStaff={this.props.deleteStaff} patchStaff={this.props.patchStaff} isLoading={this.props.isLoading} errMess={this.props.errMess}
         />
       );
     };
