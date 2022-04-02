@@ -13,11 +13,8 @@ function RenderMenuItem({ staff }) {
 
             </Link>
         </Card>
-
     );
 }
-
-
 const List = (props) => {
     const [ListStaff] = useState(props.staffs);
     const [searchStaff, setSearchStaff] = useState("");
@@ -25,19 +22,19 @@ const List = (props) => {
     
     const SearchStaffs = () => {
         const handleSearch = (values) => {
-           setSearchStaff(values.searchtext)
+           setSearchStaff(values.Staffs)
         }
        
         return (
             <LocalForm onSubmit={(values) => handleSearch(values)}>
                 <Row className="form-group">
                     <Col >
-                        <Control.text model=".searchtext" id="searchtext" name="searchtext"
+                        <Control.text model=".Staffs" id="a" name="searchtext"
                             placeholder="Tìm kiếm..."
                             className="form-control"
                         />
                     </Col>
-                    <Col md={2}>
+                    <Col md={1}>
                         <Button style={{ float: "right" }} type="submit" className='dark'>
                             Search
                         </Button>
@@ -50,7 +47,7 @@ const List = (props) => {
         return staff.name.toLowerCase().indexOf(searchStaff.toLowerCase()) !== -1;
     })
 
-
+console.log(filteredStaff)
 
     const staffs = filteredStaff.map((staff) => {
         return (

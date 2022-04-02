@@ -30,7 +30,7 @@ class Main extends Component {
       <div>
         <Header />
           <Switch>
-              <Route exact path='/menu' component={({ match }) => <List staffs={this.state.staffs} match={match} />} />
+              <Route exact path='/menu' component={() => <List staffs={this.state.staffs} />} />
               <Route path='/menu/:dishId' component={DishWithId} />
               <Route path='/department' component={() => <Department departments={this.state.departments} />} />
               <Route path='/salary' component={() => <RenderStaffsSalary listsalary={this.state.staffs}  />} />

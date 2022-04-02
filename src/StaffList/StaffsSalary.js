@@ -9,7 +9,9 @@ const Salary = ({ salary }) => {
 
     return (
         salary = parseInt(salaryy)
+        
     )
+    
 }
 function RenderStaffsSalary(props) {
         const [staffList, setStaffList] = useState(props.listsalary);
@@ -21,7 +23,7 @@ function RenderStaffsSalary(props) {
           return salaryScale * basicSalary + overTime * overTimeSalary;
         }
       
-       
+    //    console.log(salaryCalc)
         function sortSalary(sorttype) {
           let sortedStaffList = [...staffList];
           let salaryA = 0;
@@ -29,10 +31,11 @@ function RenderStaffsSalary(props) {
       
           if (sorttype === "inc") {
             sortedStaffList.sort(function (a, b) {
-              salaryA = salaryCalc(a.salaryScale, a.overTime);
+              salaryA = salaryCalc(  a.salaryScale, a.overTime);
               salaryB = salaryCalc(b.salaryScale, b.overTime);
               return salaryA - salaryB;
             });
+           
           }
       
           if (sorttype === "dec") {
